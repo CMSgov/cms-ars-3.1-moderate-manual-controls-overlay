@@ -11,4 +11,4 @@ inspec_version: ">= 4.0"
 
 depends:
 - name: cms-ars-3.1-manual-controls-baseline
-  url: https://github.com/ejaronne/cms-ars-3.1-manual-controls-baseline/archive/main.tar.gz
+  url: https://github.com/cmsgov/cms-ars-3.1-manual-controls-baseline/archive/main.tar.gz
