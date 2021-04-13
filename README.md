@@ -37,38 +37,28 @@ Latest versions and other installation options are available at https://cinc.sh/
 
 **Viewing the HDF json in __[Heimdall](https://heimdall-lite.cms.gov/)__:**  
 
-![image](https://user-images.githubusercontent.com/34140975/111320501-6a54c700-863d-11eb-8a4c-cfcac34b3863.png)
+![image](https://user-images.githubusercontent.com/34140975/114576961-9fa70180-9c49-11eb-9b3e-08515a09e292.png)
 
 **Exported from Heimdall to CAAT file:**  
 
-![image](https://user-images.githubusercontent.com/34140975/111353333-941ce680-865b-11eb-9d5e-d68acc9b0564.png)
+![image](https://user-images.githubusercontent.com/34140975/114484586-80bc5700-9bd8-11eb-9d11-65b082b3143b.png)
 
-#### Prepare your attestations file content. (See [attestation sample template](https://github.com/cmsgov/cms-ars-3.1-moderate-manual-controls-overlay/blob/update/attestation-template-cms-ars-3.1-manual-controls-baseline.json))
+By default, controls in this profile require manual review, whereby someone interviews/examines the requirement and confirms (attests as to) whether or not the control requirements have been satisfied. These attestations can be provided to this profile as follows:
 
-By default, controls in this profile require manual review, whereby someone interviews/examines the requirement and confirms (attests as to) whether or not the control requirements have been satisfied. These attestations must be configured in a json ".json" file:
+## Prepare your attestations Excel (XLSX) file to address manual controls (See .xlxs template in the samples folder):
+ 
+![image](https://user-images.githubusercontent.com/34140975/114488896-2cb57080-9be0-11eb-81bb-407f00408792.png)
+
+## Identify this file Excel in your json ".json" HDF plugin configuration file (See HDF plugin config .json file template in the samples folder):
+
 ```
 {
     "plugins": {
         "inspec-reporter-json-hdf": {
-            "attestations": [
-                {
-                    "control_id": "2.4",
-                    
-                    "explanation": "<Attestation text explaining compliance or non-compliance>",
-                    
-                    "frequency": "<How often this review/attestation needs to be updated>", 
-                   
-         (frequency value choices: annually, semiannually, quarterly, monthly, every2weeks, weekly, every3days, daily)
-             
-                    "status": "<assigned value based on review/attestation>",
-                    
-            (status value choices: passed, failed)
-
-                    "updated": "<last date attestation was performed (in YYYY-MM-DD format)>",
-                                        
-                    "updated_by": "<Name, Role of person performing attestation for this control>" 
-                }
-            ]
+            "include-attestations-file": {
+                "path": "<path_to_your_attestations_file/name_of_your_attestations_file.xlsx>",
+                "type": "xlsx"
+            }
         }
     },
     "version": "1.2"
@@ -79,21 +69,17 @@ _for example_
 {
     "plugins": {
         "inspec-reporter-json-hdf": {
-            "attestations": [
-                {
-                    "control_id": "CMS-ARS-3.1-AC-01",
-                    "explanation": "Examined ARS 3.1, IS2P2, and HHS parent Access Control policy documents and interviewed staff to confirm that these are still applicable, understood, and applied to our system.",
-                    "frequency": "annually",
-                    "status": "passed",
-                    "updated": "2020-4-1",
-                    "updated_by": "John Doe, ISSO"
-                }
-            ]
+            "include-attestations-file": {
+                "path": "./attestation-template-cms-ars-3.1-manual-controls-baseline.xlsx",
+                "type": "xlsx"
+            }
         }
     },
     "version": "1.2"
 }
 ```
+### One can also specify attestations directly in json format within the HDF plugin config json file. 
+**(These take precedence over Control IDs attested to in the Excel file)**. (See HDF plugin config .json file template in the samples folder)
 
 ## Running This Overlay Directly from Github
 
